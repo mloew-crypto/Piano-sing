@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:services="clr-namespace:PianoApp.Services"
+             x:Class="PianoApp.MainPage"
+             Title="Piano — 5 octaves"
+             BackgroundColor="#1a1a2e">
+    <Grid RowDefinitions="Auto,*" Padding="8">
+        <Label Grid.Row="0" Text="Tap keys or use keyboard: 1–6 = octave, then A W S E D F T G Y H U J for notes. NoteMapping.json links notes to audio."
+               TextColor="#eeeeee" FontSize="12" Margin="0,6" LineBreakMode="WordWrap" />
+        <GraphicsView x:Name="PianoCanvas"
+                      Grid.Row="1"
+                      BackgroundColor="#16213e"
+                      HeightRequest="220"
+                      HorizontalOptions="Fill"
+                      VerticalOptions="Fill"
+                      StartInteraction="OnStartInteraction"
+                      EndInteraction="OnEndInteraction" />
+    </Grid>
+</ContentPage>
