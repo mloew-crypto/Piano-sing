@@ -15,10 +15,10 @@
     <ApplicationIdGuid>a1b2c3d4-e5f6-7890-abcd-ef1234567890</ApplicationIdGuid>
     <ApplicationDisplayName>PianoSing App</ApplicationDisplayName>
     <!-- Android: ApplicationVersion = versionCode (integer only). ApplicationDisplayVersion = versionName shown to users. -->
-    <ApplicationVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">2</ApplicationVersion>
-    <ApplicationDisplayVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">1.1</ApplicationDisplayVersion>
+    <ApplicationVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">3</ApplicationVersion>
+    <ApplicationDisplayVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">1.2</ApplicationDisplayVersion>
     <!-- Windows: Package Identity Version must be a.b.c.d -->
-    <ApplicationVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">1.1.0.0</ApplicationVersion>
+    <ApplicationVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">1.2.0.0</ApplicationVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>

@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Hosting;
 using Plugin.Maui.Audio;
 
 namespace PianoApp;
