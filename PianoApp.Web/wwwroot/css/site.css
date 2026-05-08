@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, Segoe UI, Roboto, sans-serif;
+  background: #1a1a2e;
+  color: #eee;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.hint {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 6px 0 12px;
+}
+
+.hint code {
+  background: #16213e;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 11px;
+  border: 1px solid #555;
+  border-radius: 3px;
+  background: #16213e;
+}
+
+#piano {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #16213e;
+  touch-action: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.status {
+  font-size: 12px;
+  color: #aaa;
+  min-height: 1.25em;
+  margin-top: 8px;
+}

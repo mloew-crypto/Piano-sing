@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- MAUI uses ../Audio from the repo root; mirror into wwwroot so static hosting can play the same files. -->
+  <Target Name="SyncRepoAudioToWwwroot" BeforeTargets="BeforeBuild" Condition="Exists('$(MSBuildProjectDirectory)\..\Audio')">
+    <ItemGroup>
+      <_RepoAudio Include="$(MSBuildProjectDirectory)\..\Audio\**\*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(MSBuildProjectDirectory)\wwwroot\Audio" Condition="@(_RepoAudio->Count()) &gt; 0" />
+    <Copy SourceFiles="@(_RepoAudio)"
+          DestinationFiles="@(_RepoAudio->'$(MSBuildProjectDirectory)\wwwroot\Audio\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

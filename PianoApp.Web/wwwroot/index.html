@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Piano — web</title>
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <div class="page">
+    <p class="hint">
+      Click or tap keys. Keyboard: <kbd>1</kbd>–<kbd>6</kbd> pick octave, then
+      <kbd>A</kbd> <kbd>W</kbd> <kbd>S</kbd> <kbd>E</kbd> <kbd>D</kbd> <kbd>F</kbd>
+      <kbd>T</kbd> <kbd>G</kbd> <kbd>Y</kbd> <kbd>H</kbd> <kbd>U</kbd> <kbd>J</kbd>
+      for notes. Place WAVs under <code>wwwroot/Audio</code> per <code>NoteMapping.json</code>.
+    </p>
+    <canvas id="piano" width="1200" height="220" aria-label="Piano keyboard"></canvas>
+    <p id="status" class="status" role="status"></p>
+  </div>
+  <script src="js/piano.js" type="module"></script>
+</body>
+</html>

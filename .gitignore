@@ -482,3 +482,11 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Android Play Store signing — never commit passwords or keystores
+Platforms/Android/Signing.props
+*.keystore
+*.jks
+
+# Web: WAVs are synced from repo Audio/ at build; avoid duplicating binaries in git
+PianoApp.Web/wwwroot/Audio/

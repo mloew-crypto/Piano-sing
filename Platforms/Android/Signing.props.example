@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Play Store release signing:
+  1. Copy this file to Signing.props (same folder). Signing.props is gitignored.
+  2. Create an upload keystore once in Platforms/Android/ (same folder as Signing.props):
+       keytool -genkeypair -v -keystore piano-upload.keystore -alias piano -keyalg RSA -keysize 2048 -validity 10000
+  3. The imported Signing.props expects piano-upload.keystore in this folder. Store backups securely.
+
+  Optional: pass secrets from CI with msbuild -p:AndroidSigningStorePass=... etc., instead of storing them in Signing.props.
+-->
+<Project>
+  <PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <!-- Keystore path is next to this file (Platforms/Android/). Back up the keystore and passwords off-site. -->
+    <AndroidSigningKeyStore>$(MSBuildThisFileDirectory)piano-upload.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>REPLACE_STORE_PASSWORD</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>piano</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>REPLACE_KEY_PASSWORD</AndroidSigningKeyPass>
+  </PropertyGroup>
+</Project>

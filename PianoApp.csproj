@@ -19,6 +19,16 @@
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
 
+  <!-- Google Play: new apps must target API 35+ (policy from Aug 2025). See https://developer.android.com/google/play/requirements/target-sdk -->
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <AndroidTargetSdkVersion>35</AndroidTargetSdkVersion>
+  </PropertyGroup>
+
+  <!-- Play Store uploads require an Android App Bundle (.aab), not a plain APK. -->
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android' and '$(Configuration)' == 'Release'">
+    <AndroidPackageFormat>aab</AndroidPackageFormat>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.100" />
@@ -34,4 +44,7 @@
     <!-- Bundle for Android so we can load from app package -->
     <MauiAsset Include="NoteMapping.json" Condition="$(TargetFramework.Contains('android'))" />
   </ItemGroup>
+
+  <!-- Copy Signing.props.example to Signing.props and fill in paths/passwords (Signing.props is gitignored). -->
+  <Import Project="Platforms\Android\Signing.props" Condition="Exists('Platforms\Android\Signing.props')" />
 </Project>
