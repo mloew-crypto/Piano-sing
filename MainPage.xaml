@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:services="clr-namespace:PianoApp.Services"
              x:Class="PianoApp.MainPage"
-             Title="Piano — 5 octaves"
+             Title="PianoSing App — 5 octaves"
              BackgroundColor="#1a1a2e">
     <Grid RowDefinitions="Auto,*" Padding="8">
         <Label Grid.Row="0" Text="Tap keys or use keyboard: 1–6 = octave, then A W S E D F T G Y H U J for notes. NoteMapping.json links notes to audio."

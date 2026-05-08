@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- MAUI project lives at repo root; exclude sibling web app from SDK default globs (Compile, etc.). -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);PianoApp.Web/**</DefaultItemExcludes>
     <TargetFrameworks>net8.0-android;net8.0-windows10.0.19041.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <RootNamespace>PianoApp</RootNamespace>
@@ -8,19 +10,23 @@
     <SingleProject>true</SingleProject>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationTitle>Piano</ApplicationTitle>
-    <ApplicationId>com.pianoapp.piano</ApplicationId>
+    <ApplicationTitle>PianoSing App</ApplicationTitle>
+    <ApplicationId>com.pianosing.app</ApplicationId>
     <ApplicationIdGuid>a1b2c3d4-e5f6-7890-abcd-ef1234567890</ApplicationIdGuid>
-    <ApplicationDisplayName>Piano</ApplicationDisplayName>
-    <ApplicationVersion>1</ApplicationVersion>
-    <ApplicationVersionCode>1</ApplicationVersionCode>
+    <ApplicationDisplayName>PianoSing App</ApplicationDisplayName>
+    <!-- Android: ApplicationVersion = versionCode (integer only). ApplicationDisplayVersion = versionName shown to users. -->
+    <ApplicationVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">2</ApplicationVersion>
+    <ApplicationDisplayVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">1.1</ApplicationDisplayVersion>
+    <!-- Windows: Package Identity Version must be a.b.c.d -->
+    <ApplicationVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">1.1.0.0</ApplicationVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
 
-  <!-- Google Play: new apps must target API 35+ (policy from Aug 2025). See https://developer.android.com/google/play/requirements/target-sdk -->
+  <!-- Google Play: target API 35+. Set compile + target so the merged manifest and bundle are not capped at API 34. -->
   <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <AndroidCompileSdkVersion>35</AndroidCompileSdkVersion>
     <AndroidTargetSdkVersion>35</AndroidTargetSdkVersion>
   </PropertyGroup>
 
