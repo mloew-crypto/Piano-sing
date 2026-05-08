@@ -70,6 +70,9 @@ public class NoteMappingService
             NoteToPath[normalized] = kv.Value;
             if (normalized.Contains('#'))
                 NoteToPath[normalized.Replace("#", "s")] = kv.Value;
+            // JSON may use "Cs3" for files named Cs3.wav; UI uses "C#3".
+            if (normalized.Length >= 3 && normalized[1] == 's' && char.IsDigit(normalized[^1]))
+                NoteToPath[$"{normalized[0]}#{normalized[2..]}"] = kv.Value;
             string? sharpKey = FlatToSharp(normalized);
             if (sharpKey != null)
                 NoteToPath[sharpKey] = kv.Value;

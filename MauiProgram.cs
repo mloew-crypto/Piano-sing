@@ -9,8 +9,10 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
-        builder.UseMauiApp<App>();
-        builder.Services.AddSingleton(AudioManager.Current);
+        // Registers IAudioManager; 3.x uses platform defaults on Android (music/media stream).
+        builder
+            .UseMauiApp<App>()
+            .AddAudio(_ => { }, _ => { });
 
 #if DEBUG
         builder.Logging.AddDebug();

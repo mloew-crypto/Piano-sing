@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
@@ -12,7 +13,7 @@ public partial class MainPage : ContentPage
 {
     private const int WhiteKeyWidth = 28;
     private const int WhiteKeyHeight = 180;
-    private const int BlackKeyWidth = 18;
+    private const int BlackKeyWidth = 28;
     private const int BlackKeyHeight = 110;
     private const int OctaveCount = 5;
     private const int StartOctave = 1;
@@ -71,7 +72,8 @@ public partial class MainPage : ContentPage
                 {
                     width = BlackKeyWidth;
                     height = BlackKeyHeight;
-                    left = x + (whiteIndex - 0.45) * WhiteKeyWidth;
+                    double crackCenter = x + whiteIndex * WhiteKeyWidth;
+                    left = crackCenter - BlackKeyWidth / 2;
                     top = 0;
                 }
                 else
@@ -183,7 +185,7 @@ public partial class MainPage : ContentPage
     {
         if (e.Touches.Length == 0) return;
         PointF p = e.Touches[0];
-        foreach (var key in _keys)
+        foreach (var key in _keys.OrderByDescending(k => k.IsBlack))
         {
             if (!key.ContainsPoint(p.X, p.Y)) continue;
             _pressedKeys.Add(key.NoteName);

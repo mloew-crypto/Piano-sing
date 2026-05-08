@@ -6,15 +6,21 @@
              Title="PianoSing App — 5 octaves"
              BackgroundColor="#1a1a2e">
     <Grid RowDefinitions="Auto,*" Padding="8">
-        <Label Grid.Row="0" Text="Tap keys or use keyboard: 1–6 = octave, then A W S E D F T G Y H U J for notes. NoteMapping.json links notes to audio."
+        <Label Grid.Row="0" Text="Swipe sideways for the full keyboard. Tap keys or use keyboard: 1–6 = octave, then A W S E D F T G Y H U J. NoteMapping.json links notes to audio."
                TextColor="#eeeeee" FontSize="12" Margin="0,6" LineBreakMode="WordWrap" />
-        <GraphicsView x:Name="PianoCanvas"
-                      Grid.Row="1"
-                      BackgroundColor="#16213e"
-                      HeightRequest="220"
-                      HorizontalOptions="Fill"
-                      VerticalOptions="Fill"
-                      StartInteraction="OnStartInteraction"
-                      EndInteraction="OnEndInteraction" />
+        <ScrollView Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Always"
+                    VerticalScrollBarVisibility="Never"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
+            <GraphicsView x:Name="PianoCanvas"
+                          BackgroundColor="#16213e"
+                          HeightRequest="220"
+                          HorizontalOptions="Start"
+                          VerticalOptions="Start"
+                          StartInteraction="OnStartInteraction"
+                          EndInteraction="OnEndInteraction" />
+        </ScrollView>
     </Grid>
 </ContentPage>

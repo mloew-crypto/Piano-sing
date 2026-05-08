@@ -1,6 +1,6 @@
 const WhiteKeyWidth = 28;
 const WhiteKeyHeight = 180;
-const BlackKeyWidth = 18;
+const BlackKeyWidth = 28;
 const BlackKeyHeight = 110;
 const OctaveCount = 5;
 const StartOctave = 1;
@@ -56,7 +56,8 @@ function buildPianoKeys() {
       if (isBlack) {
         width = BlackKeyWidth;
         height = BlackKeyHeight;
-        left = x + (whiteIndex - 0.45) * WhiteKeyWidth;
+        const crackCenter = x + whiteIndex * WhiteKeyWidth;
+        left = crackCenter - BlackKeyWidth / 2;
         top = 0;
       } else {
         width = WhiteKeyWidth;
@@ -84,6 +85,9 @@ function expandMappingEntries(raw) {
     const path = v.trim();
     out.set(normalized, path);
     if (normalized.includes('#')) out.set(normalized.replace('#', 's'), path);
+    // NoteMapping may use "Cs3" (filename style) instead of "C#3"; piano UI uses sharps.
+    const sAlias = /^([A-G])s(\d+)$/.exec(normalized);
+    if (sAlias) out.set(`${sAlias[1]}#${sAlias[2]}`, path);
     const sharp = flatToSharp(normalized);
     if (sharp) out.set(sharp, path);
   }
@@ -149,9 +153,14 @@ function draw(canvas, ctx, keys, pressed) {
 }
 
 function hitTest(keys, x, y) {
-  for (let i = 0; i < keys.length; i++) {
-    const k = keys[i];
-    if (x >= k.left && x <= k.left + k.width && y >= k.top && y <= k.top + k.height) return k;
+  // Black keys overlap white rectangles beneath; test blacks first so sharp keys register.
+  for (let pass = 0; pass < 2; pass++) {
+    const wantBlack = pass === 0;
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i];
+      if (!!k.isBlack !== wantBlack) continue;
+      if (x >= k.left && x <= k.left + k.width && y >= k.top && y <= k.top + k.height) return k;
+    }
   }
   return null;
 }
